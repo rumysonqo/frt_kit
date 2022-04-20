@@ -81,6 +81,13 @@ export default {
             class:'deep-purple accent-4 white--text'
             },
             {
+            text:'PROGRAMA',
+            align:'start',
+            filterable: false,
+            value:'programa',
+            class:'deep-purple accent-4 white--text'
+            },
+            {
             text:'META',
             align:'start',
             filterable: false,
@@ -123,3 +130,26 @@ export default {
     }
 }
 </script>
+
+<style>
+  tbody tr:nth-of-type(even) {
+    background-color: rgb(211, 247, 248);
+  }
+
+  tbody tr:nth-of-type(odd) {
+    background-color: rgb(255, 255, 255);
+  }
+
+  .v-data-table-header {
+    background-color: rgb(4, 16, 65);
+    color: rgb(252, 251, 251);
+  }
+
+  .v-data-footer {
+    background-color: rgb(250 ,250, 250);
+  }
+
+  .theme--light.v-data-table thead tr th {
+    color: rgb(124, 14, 14);
+  }
+</style>

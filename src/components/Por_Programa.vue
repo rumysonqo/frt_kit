@@ -3,7 +3,7 @@
     <v-layout>
     <v-flex xs4>
     <v-text-field v-model='cadena'
-    v-on:input="bus_todo"
+        v-on:keyup.enter='kit_por_programa'
         label="busqueda por item/familia"
         placeholder="texto a buscar"
         filled
@@ -14,13 +14,13 @@
 
     <v-flex xs4>
     <v-select
-        v-model="cod_prv"
+        v-model="cod_prg"
         :items=ds_prog
         item-text="programa"
         item-value="cod_programa"
         label="Seleccione un programa"
         outlined
-        @change="get_meta()"
+        @change="kit_por_programa()"
       >
       </v-select>
 
@@ -53,10 +53,16 @@ import axios from "axios";
 let url='http://localhost:3000/api/';
 export default {
     name:'cmp-Inicio',
+    mounted(){
+        this.get_programas();
+        this.kit_por_programa();
+    },
     
     data(){
         return{
             cadena:'',
+            cod_prg:1,
+            ds_prog:[],
             ds_kit:[],
             headers:[{
             text:'CODIGO',
@@ -117,17 +123,37 @@ export default {
         }
     },
     methods:{
-        bus_todo(){
-            axios.get(url+this.cadena).then(response=>{
-                this.ds_kit=response.data;
+        async get_programas(){
+            try {
+                let datos=await axios.get(url+'programas')
+                this.ds_prog= await datos.data;    
+            } catch (error) {
+                console.log(error);
             }
-
-            )
-            console.log(this.cadena);
-        }
+        },
         
+        async kit_por_programa(){
+            if(this.cadena===''){
+                try{
+                let datos=await axios.get(url+'kit_por_programa/'+this.cod_prg)
+                console.log(datos.data);
+                this.ds_kit=await datos.data 
+                }catch(error){
+                console.log(error);
+                }
+            }else{
+                try{
+                let datos=await axios.get(url+'kit_por_programa_cadena/'+this.cod_prg+'/'+this.cadena)
+                console.log(datos.data);
+                this.ds_kit=await datos.data 
+                }catch(error){
+                console.log(error);
+                }
 
-
+            }
+        
+        
+      }
     }
 }
 </script>

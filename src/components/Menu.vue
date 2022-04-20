@@ -28,8 +28,7 @@
 
     <v-navigation-drawer
       v-model="drawer"
-      color="blue darken-4"
-      dark
+      color="light-blue darken-4"
       temporary
       app
     >
@@ -37,27 +36,31 @@
         dense
         nav
       >
-        <v-list-item-group
-          v-model="group"
-          color="cyan darken-3"
-        >
-          <v-list-item>
-              <v-btn rounded color='lime lighten-2' block><v-icon> mdi-application</v-icon><router-link to="/">Inicio</router-link></v-btn>
-          </v-list-item>
-          
-          <v-list-item>
-            <v-btn rounded color='lime lighten-2' block><router-link to="/por_programa">Por Programa</router-link></v-btn>
-          </v-list-item>
 
-          <v-list-item>
-            <v-btn rounded color='lime lighten-2' block>Por Programa/Meta</v-btn>
-          </v-list-item>
+      <router-link style="text-decoration: none; color: inherit;" to="/">  
+      <v-list-item>
+        <v-btn class="cyan lighten-2" rounded block>
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Inicio</v-list-item-title>
+          </v-btn>
+        </v-list-item>
+        </router-link>
 
-          <v-list-item>
-            <v-list-item-title>Por Programa/Meta/Tarea</v-list-item-title>
-          </v-list-item>
-          
-        </v-list-item-group>
+        <router-link style="text-decoration: none; color: inherit;" to="/por_programa">
+        <v-list-item link>
+        <v-btn class="cyan lighten-2" rounded block>
+          <v-list-item-icon>
+            <v-icon>mdi-account-multiple</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Por Programa</v-list-item-title>
+        </v-btn>
+        </v-list-item>
+        </router-link>
+
+        
+
       </v-list>
     </v-navigation-drawer>
 
