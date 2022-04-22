@@ -4,7 +4,7 @@
     <v-flex xs4>
     <v-text-field v-model='cadena'
         v-on:keyup.enter='bus_todo'
-        label="busqueda por item/familia"
+        label="Ingrese cadena de busqueda"
         placeholder="texto a buscar"
         filled
         rounded>
