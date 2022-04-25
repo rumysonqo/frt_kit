@@ -94,7 +94,7 @@
         </v-list-item>
         </router-link>
 
-        <router-link style="text-decoration: none; color: inherit;" to="/por_programa">
+        <router-link style="text-decoration: none; color: inherit;" to="/por_meta_clasificador">
         <v-list-item link>
         <v-btn class="cyan lighten-2" rounded block>
           <v-list-item-icon>

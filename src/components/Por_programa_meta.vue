@@ -20,7 +20,7 @@
         item-value="cod_programa"
         label="Seleccione un programa"
         outlined
-        @change="get_prog_metas()"
+        @change="get_prog_metas(), kit_por_programa()"
       >
       </v-select>
 

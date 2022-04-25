@@ -3,7 +3,7 @@
     <v-layout>
     <v-flex xs4>
     <v-text-field v-model='cadena'
-        v-on:keyup.enter='kit_por_clasificador'
+        v-on:keyup.enter='kit_por_clasificador_cadena'
         label="busqueda por item/familia"
         placeholder="texto a buscar"
         filled
@@ -20,7 +20,7 @@
         item-value="cod_clasificador"
         label="Seleccione un clasificador"
         outlined
-        @change="kit_por_clasificador()"
+        @change="kit_por_clasificador_cadena()"
       >
       </v-select>
 
@@ -132,10 +132,10 @@ export default {
             }
         },
         
-        async kit_por_programa(){
+        async kit_por_clasificador_cadena(){
             if(this.cadena===''){
                 try{
-                let datos=await axios.get(url+'kit_por_programa/'+this.cod_prg)
+                let datos=await axios.get(url+'kit_por_clasificador/'+this.cod_clf)
                 console.log(datos.data);
                 this.ds_kit=await datos.data 
                 }catch(error){
@@ -143,7 +143,7 @@ export default {
                 }
             }else{
                 try{
-                let datos=await axios.get(url+'kit_por_programa_cadena/'+this.cod_prg+'/'+this.cadena)
+                let datos=await axios.get(url+'kit_por_clasificador_cadena/'+this.cod_clf+'/'+this.cadena)
                 console.log(datos.data);
                 this.ds_kit=await datos.data 
                 }catch(error){

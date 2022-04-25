@@ -3,16 +3,14 @@
     <v-layout>
     <v-flex xs4>
     <v-text-field v-model='cadena'
-        v-on:keyup.enter='kit_por_meta_tarea_cadena()'
-        label="ingrese cadena de dusqueda"
+        v-on:keyup.enter='kit_por_meta_clasificador_cadena'
+        label="ingrese cadena de busqueda"
         placeholder="texto a buscar"
         filled
         rounded>
     </v-text-field>
 
     </v-flex>
-
-    
 
     <v-flex xs4>
     <v-select
@@ -22,7 +20,7 @@
         item-value="cod_meta"
         label="Seleccione una meta"
         outlined
-        @change="get_tareas()"
+        @change="get_clasificador(), kit_por_meta_cadena()"
       >
       </v-select>
 
@@ -30,13 +28,13 @@
 
     <v-flex xs4>
     <v-select
-        v-model="cod_tar"
-        :items=ds_tarea
-        item-text="sub_finalidad"
-        item-value="cod_subfin"
-        label="Seleccione una tarea"
+        v-model="cod_clf"
+        :items=ds_clf
+        item-text="clasificador"
+        item-value="cod_clasificador"
+        label="Seleccione un clasificador"
         outlined
-        @change="kit_por_meta_tarea_cadena()"
+        @change="kit_por_meta_clasificador_cadena()"
       >
       </v-select>
 
@@ -71,18 +69,16 @@ export default {
     name:'cmp-Inicio',
     mounted(){
         this.get_metas();
-        this.get_tareas();
+        this.get_clasificador();
+        this.kit_por_meta_cadena();
     },
     
     data(){
         return{
             cadena:'',
-            cod_prg:1,
             cod_meta:1,
-            cod_tar:'',
-            ds_prog:[],
             ds_meta:[],
-            ds_tarea:[],
+            ds_clf:[],
             ds_kit:[],
             headers:[{
             text:'CODIGO',
@@ -151,17 +147,39 @@ export default {
                 console.log(error);
             }
         },
-
-        async get_tareas(){
+        
+        async get_clasificador(){
             try {
-                let datos=await axios.get(url+'tareas/'+this.cod_meta)
-                this.ds_tarea= await datos.data;    
+                let datos=await axios.get(url+'metas_clasificador/'+this.cod_meta)
+                this.ds_clf= await datos.data;    
             } catch (error) {
                 console.log(error);
             }
         },
+
+
         
-        async kit_por_meta(){
+      async kit_por_meta_clasificador_cadena(){
+            if(this.cadena===''){
+                try{
+                let datos=await axios.get(url+'kit_por_meta_clasificador/'+this.cod_meta+'/'+this.cod_clf)
+                console.log(datos.data);
+                this.ds_kit=await datos.data 
+                }catch(error){
+                console.log(error);
+                }
+            }else{
+                try{
+                let datos=await axios.get(url+'kit_por_meta_clasificador_cadena/'+this.cod_meta+'/'+this.cod_clf+'/'+this.cadena)
+                console.log(datos.data);
+                this.ds_kit=await datos.data 
+                }catch(error){
+                console.log(error);
+                }
+            }
+      },
+
+      async kit_por_meta_cadena(){
             if(this.cadena===''){
                 try{
                 let datos=await axios.get(url+'kit_por_meta/'+this.cod_meta)
@@ -172,28 +190,7 @@ export default {
                 }
             }else{
                 try{
-                let datos=await axios.get(url+'kit_por_meta_cadena/'+this.cod_prg+'/'+this.cadena)
-                console.log(datos.data);
-                this.ds_kit=await datos.data 
-                }catch(error){
-                console.log(error);
-                }
-            }
-      },
-
-      
-      async kit_por_meta_tarea_cadena(){
-            if(this.cadena===''){
-                try{
-                let datos=await axios.get(url+'kit_por_meta_tarea/'+this.cod_meta+'/'+this.cod_tar)
-                console.log(datos.data);
-                this.ds_kit=await datos.data 
-                }catch(error){
-                console.log(error);
-                }
-            }else{
-                try{
-                let datos=await axios.get(url+'kit_por_meta_tarea_cadena/'+this.cod_meta+'/'+this.cod_tar+'/'+this.cadena)
+                let datos=await axios.get(url+'kit_por_meta_cadena/'+this.cod_meta+'/'+this.cadena)
                 console.log(datos.data);
                 this.ds_kit=await datos.data 
                 }catch(error){
