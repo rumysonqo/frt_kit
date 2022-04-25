@@ -83,13 +83,13 @@
         </v-list-item>
         </router-link>
 
-        <router-link style="text-decoration: none; color: inherit;" to="/por_programa">
+        <router-link style="text-decoration: none; color: inherit;" to="/por_clasificador">
         <v-list-item link>
         <v-btn class="cyan lighten-2" rounded block>
           <v-list-item-icon>
             <v-icon>mdi-ballot</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>Clasificador</v-list-item-title>
+          <v-list-item-title>Por Clasificador</v-list-item-title>
         </v-btn>
         </v-list-item>
         </router-link>

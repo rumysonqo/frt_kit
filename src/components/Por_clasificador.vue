@@ -3,8 +3,8 @@
     <v-layout>
     <v-flex xs4>
     <v-text-field v-model='cadena'
-        v-on:keyup.enter='kit_por_meta_tarea_cadena()'
-        label="ingrese cadena de dusqueda"
+        v-on:keyup.enter='kit_por_clasificador'
+        label="busqueda por item/familia"
         placeholder="texto a buscar"
         filled
         rounded>
@@ -12,31 +12,15 @@
 
     </v-flex>
 
-    
-
     <v-flex xs4>
     <v-select
-        v-model="cod_meta"
-        :items=ds_meta
-        item-text="meta"
-        item-value="cod_meta"
-        label="Seleccione una meta"
+        v-model="cod_clf"
+        :items=ds_clf
+        item-text="clasificador"
+        item-value="cod_clasificador"
+        label="Seleccione un clasificador"
         outlined
-        @change="get_tareas()"
-      >
-      </v-select>
-
-    </v-flex>
-
-    <v-flex xs4>
-    <v-select
-        v-model="cod_tar"
-        :items=ds_tarea
-        item-text="sub_finalidad"
-        item-value="cod_subfin"
-        label="Seleccione una tarea"
-        outlined
-        @change="kit_por_meta_tarea_cadena()"
+        @change="kit_por_clasificador()"
       >
       </v-select>
 
@@ -70,19 +54,15 @@ let url='http://localhost:3000/api/';
 export default {
     name:'cmp-Inicio',
     mounted(){
-        this.get_metas();
-        this.get_tareas();
+        this.get_clasificador();
+        this.kit_por_clasificador_cadena();
     },
     
     data(){
         return{
             cadena:'',
-            cod_prg:1,
-            cod_meta:1,
-            cod_tar:'',
-            ds_prog:[],
-            ds_meta:[],
-            ds_tarea:[],
+            cod_clf:'',
+            ds_clf:[],
             ds_kit:[],
             headers:[{
             text:'CODIGO',
@@ -143,19 +123,10 @@ export default {
         }
     },
     methods:{
-        async get_metas(){
+        async get_clasificador(){
             try {
-                let datos=await axios.get(url+'metas/')
-                this.ds_meta= await datos.data;    
-            } catch (error) {
-                console.log(error);
-            }
-        },
-
-        async get_tareas(){
-            try {
-                let datos=await axios.get(url+'tareas/'+this.cod_meta)
-                this.ds_tarea= await datos.data;    
+                let datos=await axios.get(url+'clasificador')
+                this.ds_clf= await datos.data;    
             } catch (error) {
                 console.log(error);
             }
@@ -178,51 +149,11 @@ export default {
                 }catch(error){
                 console.log(error);
                 }
-            }
-      },
 
-      async kit_por_programa_meta_cadena(){
-            if(this.cadena===''){
-                try{
-                let datos=await axios.get(url+'kit_por_programa_meta/'+this.cod_prg+'/'+this.cod_meta)
-                console.log(datos.data);
-                this.ds_kit=await datos.data 
-                }catch(error){
-                console.log(error);
-                }
-            }else{
-                try{
-                let datos=await axios.get(url+'kit_por_programa_meta_cadena/'+this.cod_prg+'/'+this.cod_meta+'/'+this.cadena)
-                console.log(datos.data);
-                this.ds_kit=await datos.data 
-                }catch(error){
-                console.log(error);
-                }
             }
-      },
-
-      async kit_por_meta_tarea_cadena(){
-            if(this.cadena===''){
-                try{
-                let datos=await axios.get(url+'kit_por_meta_tarea/'+this.cod_meta+'/'+this.cod_tar)
-                console.log(datos.data);
-                this.ds_kit=await datos.data 
-                }catch(error){
-                console.log(error);
-                }
-            }else{
-                try{
-                let datos=await axios.get(url+'kit_por_meta_tarea_cadena/'+this.cod_meta+'/'+this.cod_tar+'/'+this.cadena)
-                console.log(datos.data);
-                this.ds_kit=await datos.data 
-                }catch(error){
-                console.log(error);
-                }
-            }
+        
+        
       }
-
-
-
     }
 }
 </script>

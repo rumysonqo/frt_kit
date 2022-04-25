@@ -4,6 +4,7 @@ import Inicio from '../components/Inicio'
 import Por_Programa from '../components/Por_Programa'
 import Por_programa_meta from '../components/Por_programa_meta'
 import Por_meta_tarea from '../components/Por_meta_tarea'
+import Por_clasificador from '../components/Por_clasificador'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,12 @@ const routes = [
     name: 'por_meta_tarea',
     component: Por_meta_tarea
   },
+  {
+    path: '/por_clasificador',
+    name: 'por_clasificador',
+    component: Por_clasificador
+  },
+
 
   {
     path: '/about',
