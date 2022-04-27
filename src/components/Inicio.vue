@@ -112,44 +112,24 @@ export default {
         }
     },
     methods:{
-        ver_todo(){
-            axios.get(url).then(response=>{
-                this.ds_kit=response.data;
-            }
-        )
-            console.log(this.cadena);
+        async ver_todo(){
+          try {
+            let datos=await axios.get(url)
+            this.ds_kit= await datos.data;    
+          } catch (error) {
+            console.log(error);
+          }
         },
-        bus_todo(){
-            axios.get(url+this.cadena).then(response=>{
-                this.ds_kit=response.data;
-            }
 
-            )
-            console.log(this.cadena);
+        async bus_todo(){
+          try {
+            let datos=await axios.get(url+this.cadena)
+            this.ds_kit= await datos.data;    
+          } catch (error) {
+            console.log(error);
+          }
         }
     }
 }
 </script>
 
-<style>
-  tbody tr:nth-of-type(even) {
-    background-color: rgb(211, 247, 248);
-  }
-
-  tbody tr:nth-of-type(odd) {
-    background-color: rgb(255, 255, 255);
-  }
-
-  .v-data-table-header {
-    background-color: rgb(4, 16, 65);
-    color: rgb(252, 251, 251);
-  }
-
-  .v-data-footer {
-    background-color: rgb(250 ,250, 250);
-  }
-
-  .theme--light.v-data-table thead tr th {
-    color: rgb(124, 14, 14);
-  }
-</style>

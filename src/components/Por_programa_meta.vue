@@ -69,8 +69,8 @@ export default {
     name:'cmp-Inicio',
     mounted(){
         this.get_programas();
-        this.kit_por_programa();
         this.get_prog_metas();
+        this.kit_por_programa();
     },
     
     data(){
@@ -179,23 +179,23 @@ export default {
       },
 
       async kit_por_programa_meta_cadena(){
-            if(this.cadena===''){
-                try{
+        if(this.cadena===''){
+            try{
                 let datos=await axios.get(url+'kit_por_programa_meta/'+this.cod_prg+'/'+this.cod_meta)
                 console.log(datos.data);
                 this.ds_kit=await datos.data 
-                }catch(error){
+            }catch(error){
                 console.log(error);
-                }
-            }else{
-                try{
+            }
+        }else{
+            try{
                 let datos=await axios.get(url+'kit_por_programa_meta_cadena/'+this.cod_prg+'/'+this.cod_meta+'/'+this.cadena)
                 console.log(datos.data);
                 this.ds_kit=await datos.data 
-                }catch(error){
+            }catch(error){
                 console.log(error);
-                }
             }
+        }
       }
 
 
