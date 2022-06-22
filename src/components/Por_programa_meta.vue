@@ -49,9 +49,6 @@
       :headers="headers"
       :items="ds_kit"
       class="elevation-5"
-      :footer-props="{
-      'items-per-page-options': [10, 20, 30, 40, 50]}"
-      :items-per-page="30"
       >
       </v-data-table>
     

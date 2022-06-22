@@ -36,7 +36,7 @@
 
 <script>
 import axios from "axios";
-let url='http://localhost:3000/api/';
+let url='http://localhost:8000/api/';
 export default {
     name:'cmp-Inicio',
     mounted(){
@@ -114,7 +114,7 @@ export default {
     methods:{
         async ver_todo(){
           try {
-            let datos=await axios.get(url)
+            let datos=await axios.get(url+"mostrar_todo")
             this.ds_kit= await datos.data;    
           } catch (error) {
             console.log(error);
@@ -123,7 +123,7 @@ export default {
 
         async bus_todo(){
           try {
-            let datos=await axios.get(url+this.cadena)
+            let datos=await axios.get(url+"buscar_todo/"+this.cadena)
             this.ds_kit= await datos.data;    
           } catch (error) {
             console.log(error);
