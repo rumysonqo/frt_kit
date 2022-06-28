@@ -61,7 +61,7 @@
 
 <script>
 import axios from "axios";
-let url='http://localhost:3000/api/';
+let url='http://localhost:8000/api/';
 export default {
     name:'cmp-Inicio',
     mounted(){
@@ -154,27 +154,7 @@ export default {
                 console.log(error);
             }
         },
-        
-        async kit_por_programa(){
-            if(this.cadena===''){
-                try{
-                let datos=await axios.get(url+'kit_por_programa/'+this.cod_prg)
-                console.log(datos.data);
-                this.ds_kit=await datos.data 
-                }catch(error){
-                console.log(error);
-                }
-            }else{
-                try{
-                let datos=await axios.get(url+'kit_por_programa_cadena/'+this.cod_prg+'/'+this.cadena)
-                console.log(datos.data);
-                this.ds_kit=await datos.data 
-                }catch(error){
-                console.log(error);
-                }
-            }
-      },
-
+       
       async kit_por_programa_meta_cadena(){
         if(this.cadena===''){
             try{
