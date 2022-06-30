@@ -3,7 +3,7 @@
     <v-layout>
     <v-flex xs4>
     <v-text-field v-model='cadena'
-        v-on:keyup.enter='kit_por_programa_meta_cadena'
+        v-on:keyup.enter='kit_por_programa(), kit_por_programa_meta_cadena()'
         label="ingrese cadena de dusqueda"
         placeholder="texto a buscar"
         filled
@@ -49,6 +49,9 @@
       :headers="headers"
       :items="ds_kit"
       class="elevation-5"
+      :footer-props="{
+      'items-per-page-options': [10, 20, 30, 40, 50]}"
+      :items-per-page="30"
       >
       </v-data-table>
     
@@ -68,13 +71,14 @@ export default {
         this.get_programas();
         this.get_prog_metas();
         this.kit_por_programa();
+        this.kit_por_programa_meta_cadena();
     },
     
     data(){
         return{
             cadena:'',
-            cod_prg:1,
-            cod_meta:1,
+            cod_prg:null,
+            cod_meta:null,
             ds_prog:[],
             ds_meta:[],
             ds_kit:[],
@@ -154,6 +158,29 @@ export default {
                 console.log(error);
             }
         },
+
+
+        async kit_por_programa(){
+                if(this.cadena==='' && this.cod_meta==null){
+                    try{
+                    let datos=await axios.get(url+'kit_por_programa/'+this.cod_prg)
+                    console.log(datos.data);
+                    this.ds_kit=await datos.data 
+                    }catch(error){
+                    console.log(error);
+                    }
+                }else{
+                    try{
+                    let datos=await axios.get(url+'kit_por_programa_cadena/'+this.cod_prg+'/'+this.cadena)
+                    console.log(datos.data);
+                    this.ds_kit=await datos.data 
+                    }catch(error){
+                    console.log(error);
+                    }
+
+                }
+        },
+
        
       async kit_por_programa_meta_cadena(){
         if(this.cadena===''){

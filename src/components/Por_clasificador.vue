@@ -50,7 +50,7 @@
 
 <script>
 import axios from "axios";
-let url='http://localhost:3000/api/';
+let url='http://localhost:8000/api/';
 export default {
     name:'cmp-Inicio',
     mounted(){
@@ -61,7 +61,7 @@ export default {
     data(){
         return{
             cadena:'',
-            cod_clf:'',
+            cod_clf:null,
             ds_clf:[],
             ds_kit:[],
             headers:[{

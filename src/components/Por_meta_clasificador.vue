@@ -3,7 +3,7 @@
     <v-layout>
     <v-flex xs4>
     <v-text-field v-model='cadena'
-        v-on:keyup.enter='kit_por_meta_clasificador_cadena'
+        v-on:keyup.enter='kit_por_meta_cadena(), kit_por_meta_clasificador_cadena()'
         label="ingrese cadena de busqueda"
         placeholder="texto a buscar"
         filled
@@ -64,7 +64,7 @@
 
 <script>
 import axios from "axios";
-let url='http://localhost:3000/api/';
+let url='http://localhost:8000/api/';
 export default {
     name:'cmp-Inicio',
     mounted(){
@@ -76,7 +76,7 @@ export default {
     data(){
         return{
             cadena:'',
-            cod_meta:1,
+            cod_meta:null,
             ds_meta:[],
             ds_clf:[],
             ds_kit:[],

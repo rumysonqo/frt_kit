@@ -3,7 +3,7 @@
     <v-layout>
     <v-flex xs4>
     <v-text-field v-model='cadena'
-        v-on:keyup.enter='kit_por_meta_tarea_cadena()'
+        v-on:keyup.enter='kit_por_meta(), kit_por_meta_tarea()'
         label="ingrese cadena de dusqueda"
         placeholder="texto a buscar"
         filled
@@ -22,7 +22,7 @@
         item-value="cod_meta"
         label="Seleccione una meta"
         outlined
-        @change="get_tareas()"
+        @change="get_tareas(), kit_por_meta()"
       >
       </v-select>
 
@@ -36,7 +36,7 @@
         item-value="cod_subfin"
         label="Seleccione una tarea"
         outlined
-        @change="kit_por_meta_tarea_cadena()"
+        @change="kit_por_meta_tarea()"
       >
       </v-select>
 
@@ -66,20 +66,21 @@
 
 <script>
 import axios from "axios";
-let url='http://localhost:3000/api/';
+let url='http://localhost:8000/api/';
 export default {
     name:'cmp-Inicio',
     mounted(){
         this.get_metas();
         this.get_tareas();
+        this.kit_por_meta();
+        this.kit_por_meta_tarea();
     },
     
     data(){
         return{
             cadena:'',
-            cod_prg:1,
-            cod_meta:1,
-            cod_tar:'',
+            cod_meta:null,
+            cod_tar:null,
             ds_prog:[],
             ds_meta:[],
             ds_tarea:[],
@@ -162,7 +163,7 @@ export default {
         },
         
         async kit_por_meta(){
-            if(this.cadena===''){
+            if(this.cadena==='' && this.cod_tar==null){
                 try{
                 let datos=await axios.get(url+'kit_por_meta/'+this.cod_meta)
                 console.log(datos.data);
@@ -172,7 +173,7 @@ export default {
                 }
             }else{
                 try{
-                let datos=await axios.get(url+'kit_por_meta_cadena/'+this.cod_prg+'/'+this.cadena)
+                let datos=await axios.get(url+'kit_por_meta_cadena/'+this.cod_meta+'/'+this.cadena)
                 console.log(datos.data);
                 this.ds_kit=await datos.data 
                 }catch(error){
@@ -182,8 +183,8 @@ export default {
       },
 
       
-      async kit_por_meta_tarea_cadena(){
-            if(this.cadena===''){
+      async kit_por_meta_tarea(){
+            if(this.cadena==='' && this.cod_tar !=null){
                 try{
                 let datos=await axios.get(url+'kit_por_meta_tarea/'+this.cod_meta+'/'+this.cod_tar)
                 console.log(datos.data);
